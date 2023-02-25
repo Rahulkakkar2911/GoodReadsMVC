@@ -1,0 +1,33 @@
+@model IEnumerable<LibraryManagement.Models.RahulBook>
+
+@if(Model.Count() != 0){    
+    <table class="table">
+        <tr>
+            @if(ViewBag.isAdmin == true){
+                <th>Book ID</th>
+                <th>Book Quantity</th>
+            }
+
+            <th>Book Name</th>
+            <th>Book Author</th>
+            <th>Details</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @if(ViewBag.isAdmin == true){
+                    <td>@item.BookId</td>
+                    <td>@item.BookQty</td>
+                }
+                <td>@item.BookName</td>
+                <td>@item.BookAuthor</td>
+                <td><a asp-action = "GetDetails" asp-controller = "Book" asp-route-id = "@item.BookId">Know More</a></td>
+            </tr>
+        }
+    </table>
+    <a class="btn btn-primary" asp-action ="GetBooks" asp-controller = "Book">Back To Books</a>
+}
+else{
+    <h2 class = "text-primary">No Books Found From @ViewBag.keyword</h2>
+    <a class="btn btn-primary" asp-action ="GetBooks" asp-controller = "Book">Back To Books</a>
+}

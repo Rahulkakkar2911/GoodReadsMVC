@@ -1,0 +1,53 @@
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<ul class="navbar-nav">
+    @{ 
+        ViewBag.Data = @HttpContextAccessor.HttpContext.Session.GetString("username");
+        ViewBag.uid = @HttpContextAccessor.HttpContext.Session.GetString("uid");
+        ViewBag.IsAdmin = @HttpContextAccessor.HttpContext.Session.GetString("IsAdmin");
+    }
+    @if (ViewBag.Data!=null && ViewBag.IsAdmin != null && ViewBag.IsAdmin == "yes")
+    {
+        <li class="nav-item">
+            <a id="manage" class="nav-link text-dark" asp-controller="Home" asp-action="Privacy" title="Manage">Hello @ViewBag.Data!</a>
+        </li>
+        <li class="nav-item">
+            <form>
+                <button id="logout" type="submit" class="nav-link btn btn-link text-dark" asp-controller="Login" asp-action="Logout">Logout</button>
+            </form>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Book" asp-action="GetBooks">View Books</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Book" asp-action="Create">Add Book</a>
+        </li>
+    }
+    else if (ViewBag.Data!=null && ViewBag.IsAdmin == null)
+    {
+        <li class="nav-item">
+            <a id="manage" class="nav-link text-dark" asp-controller="Home" asp-action="Privacy" title="Manage">Hello @ViewBag.Data!</a>
+        </li>
+        <li class="nav-item">
+            <form>
+                <button id="logout" type="submit" class="nav-link btn btn-link text-dark" asp-controller="Login" asp-action="Logout">Logout</button>
+            </form>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Book" asp-action="GetBooks">ViewBooks</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" asp-controller="Booking" asp-action="ViewBookings" asp-route-uid = "@ViewBag.uid">My Bookings</a>
+        </li>
+    }
+    else
+    {
+        <li class="nav-item">
+            <a class="nav-link text-dark" id="register" asp-controller="User" asp-action="Create">Signup</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link text-dark" id="login" asp-controller="Login" asp-action="Login">Signin</a>
+        </li>
+    }   
+</ul>

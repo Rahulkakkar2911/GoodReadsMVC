@@ -1,0 +1,39 @@
+@model IEnumerable<LibraryManagement.Models.RahulBook>
+
+@if(Model.Count() != 0){
+    
+        <form class="form-inline" asp-action = "SearchBooks">
+            <div class="form-group mx-sm-3 mb-2">
+                <input class="form-control" type = "text" name="keyword" placeholder="Search Books..." id="keyword" />
+                <input style="margin-left:7px;" type = "submit" value="Search" class="btn btn-primary" />
+            </div>
+        </form>    
+    
+    <table class="table">
+        <tr>
+            @if(ViewBag.isAdmin == true){
+                <th>Book ID</th>
+                <th>Book Quantity</th>
+            }
+
+            <th>Book Name</th>
+            <th>Book Author</th>
+            <th>Details</th>
+        </tr>
+        @foreach (var item in Model)
+        {
+            <tr>
+                @if(ViewBag.isAdmin == true){
+                    <td>@item.BookId</td>
+                    <td>@item.BookQty</td>
+                }
+                <td>@item.BookName</td>
+                <td>@item.BookAuthor</td>
+                <td><a asp-action = "GetDetails" asp-controller = "Book" asp-route-id = "@item.BookId">Know More</a></td>
+            </tr>
+        }
+    </table>
+}
+else{
+    <h2 class = "text-primary">No Books Found</h2>
+}

@@ -1,0 +1,46 @@
+@model LibraryManagement.Models.RahulBook
+
+@{
+    ViewData["Title"] = "Details";
+    
+}
+<h1>@ViewBag.bname</h1>
+<div>
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BookName)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BookName)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.BookAuthor)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.BookAuthor)
+        </dd>
+    </dl>
+</div>
+<div>
+    @if(ViewBag.username != null && ViewBag.isAdmin == null){
+        <form asp-action="book" asp-controller = "Booking" asp-route-id = "@ViewBag.id" Method="POST">
+            <div class="form-group">
+                <input type="submit" value="Book" class="btn btn-primary" />
+            </div>
+        </form>
+    }
+    @if(ViewBag.username != null && ViewBag.isAdmin == true){
+        <form asp-action="Edit" asp-controller = "Book" asp-route-id = "@ViewBag.id" Method = "GET">
+            <div class="form-group">
+                <input type="submit" value="Edit" class="btn btn-primary" />
+            </div>
+        </form>
+        <form asp-action="Delete" asp-controller = "Book" asp-route-id = "@ViewBag.id" Method = "POST">
+            <div class="form-group">
+                <input type="submit" value="Delete" class="btn btn-danger" />
+            </div>
+        </form>
+    }
+    
+    <a asp-action="GetBooks" asp-controller ="Book">Back to Books</a>
+</div>

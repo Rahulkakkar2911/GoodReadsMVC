@@ -1,0 +1,42 @@
+@model LibraryManagement.Models.RahulBook
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit a Book</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit" asp-controller= "Book" Method ="POST">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="BookName" name = "bname" class="control-label"></label>
+                <input asp-for="BookName" name = "bname" class="form-control" />
+                <span asp-validation-for="BookName" name = "bname" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookAuthor" name = "bauthor" class="control-label"></label>
+                <input asp-for="BookAuthor" name = "bauthor" class="form-control" />
+                <span asp-validation-for="BookAuthor" name = "bauthor" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="BookQty" name = "bqty" class="control-label"></label>
+                <input asp-for="BookQty" type="number" min="1" max = "20" name = "bqty" class="form-control" />
+                <span asp-validation-for="BookQty" name = "bqty" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="GetBooks" asp-controller = "Book">Back to Books</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

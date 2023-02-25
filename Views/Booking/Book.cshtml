@@ -1,0 +1,4 @@
+@if(ViewBag.error != null){
+    <h1 class="text-danger">@ViewBag.Error</h1>
+}
+<a asp-action = "GetBooks" asp-controller = "Book">Back to Books</a>
